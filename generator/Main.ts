@@ -327,7 +327,7 @@ methodStructure = {
     type: '(result: any, error?: any) => any',
     hasQuestionToken: true,
   }],
-  returnType: 'Promise<PokeAPITypes.EndpointsList>',
+  returnType: 'Promise<PokeAPI.EndpointsList>',
 };
 
 pokeApiClass.addMethod(methodStructure).setBodyText(`

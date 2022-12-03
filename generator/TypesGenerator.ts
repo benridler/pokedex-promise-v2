@@ -57,11 +57,6 @@ async function generateFinalFile(types: string) {
   // Write the interfaces to the namespace
   namespace.setBodyText(types);
 
-  // Remove interfaces that are wrongly generated
-  namespace.getInterface('EvolutionChainElement').remove();
-  namespace.getInterface('GenerationElement').remove();
-  namespace.getInterface('VersionGroupNamedList').remove();
-
   // Replace the wrong definitions with the correct ones
   namespace.setBodyText(namespace.getBodyText()
     .replace(/EvolutionChainElement/g, 'APIResource')

@@ -17,7 +17,11 @@ declare module 'pokedex-promise-v2' {
             count: number;
             next: null | string;
             previous: null | string;
-            results: APIResource[];
+            results: ResultElement[];
+        }
+
+        interface ResultElement {
+            url: string;
         }
 
         interface EndpointsList {
@@ -89,6 +93,11 @@ declare module 'pokedex-promise-v2' {
             results: NamedAPIResource[];
         }
 
+        interface NamedAPIResource {
+            name: string;
+            url: string;
+        }
+
         /** Abilities provide passive effects for Pokémon in battle or in the overworld. Pokémon have multiple possible abilities but can have only one ability at a time. Check out [Bulbapedia](http://bulbapedia.bulbagarden.net/wiki/Ability) for greater detail. */
         interface Ability {
             /** The list of previous effects this ability has had across version groups. */
@@ -147,6 +156,13 @@ declare module 'pokedex-promise-v2' {
             pokemon: NamedAPIResource;
             /** Pokémon have 3 ability 'slots' which hold references to possible abilities they could have. This is the slot of this ability for the referenced pokemon. */
             slot: number;
+        }
+
+        interface VersionGroupNamedList {
+            count: number;
+            next: null | string;
+            previous: null | string;
+            results: NamedAPIResource[];
         }
 
         /** Berries are small fruits that can provide HP and status condition restoration, stat enhancement, and even damage negation when eaten by Pokémon. Check out [Bulbapedia](http://bulbapedia.bulbagarden.net/wiki/Berry) for greater detail. */
@@ -244,7 +260,7 @@ declare module 'pokedex-promise-v2' {
             count: number;
             next: null | string;
             previous: null | string;
-            results: APIResource[];
+            results: ResultElement[];
         }
 
         /** Contest effects refer to the effects of moves when used in contests. */
@@ -558,7 +574,7 @@ declare module 'pokedex-promise-v2' {
             /** A list of attributes this item has. */
             attributes: NamedAPIResource[];
             /** An evolution chain this item requires to produce a bay during mating. */
-            baby_trigger_for: null | APIResource;
+            baby_trigger_for: null | ResultElement;
             /** The category of items this item falls into. */
             category: NamedAPIResource;
             /** The price of this item in stores. */
@@ -615,7 +631,7 @@ declare module 'pokedex-promise-v2' {
         }
 
         interface ItemMachine {
-            machine: APIResource;
+            machine: ResultElement;
             version_group: NamedAPIResource;
         }
 
@@ -626,7 +642,7 @@ declare module 'pokedex-promise-v2' {
 
         interface ItemSprites {
             /** The default depiction of this item. */
-            default: string;
+            default: null | string;
         }
 
         /** Item attributes define particular aspects of items, e.g. "usable in battle" or "consumable". */
@@ -828,11 +844,11 @@ declare module 'pokedex-promise-v2' {
             /** A detail of normal and super contest combos that require this move. */
             contest_combos: null | ContestCombos;
             /** The effect the move has when used in a contest. */
-            contest_effect: null | APIResource;
+            contest_effect: null | ResultElement;
             /** The type of appeal this move gives a Pokémon when used in a contest. */
             contest_type: null | NamedAPIResource;
             /** The type of damage the move inflicts on the target, e.g. physical. */
-            damage_class: null | NamedAPIResource;
+            damage_class: NamedAPIResource;
             /** The percent value of how likely it is this moves effect will happen. */
             effect_chance: number | null;
             /** The list of previous effects this move has had across version groups of the games. */
@@ -866,7 +882,7 @@ declare module 'pokedex-promise-v2' {
             /** A list of stats this moves effects and how much it effects them. */
             stat_changes: StatChange[];
             /** The effect the move has when used in a super contest. */
-            super_contest_effect: null | APIResource;
+            super_contest_effect: null | ResultElement;
             /** The type of target that will receive the effects of the attack. */
             target: NamedAPIResource;
             /** The elemental type of this move. */
@@ -911,7 +927,7 @@ declare module 'pokedex-promise-v2' {
         }
 
         interface MoveMachine {
-            machine: APIResource;
+            machine: ResultElement;
             version_group: NamedAPIResource;
         }
 
@@ -1234,7 +1250,7 @@ declare module 'pokedex-promise-v2' {
             /** A list of abilities this Pokémon could potentially have. */
             abilities: AbilityElement[];
             /** The base experience gained for defeating this Pokémon. */
-            base_experience: number;
+            base_experience: number | null;
             /** A list of forms this Pokémon can take on. */
             forms: NamedAPIResource[];
             /** A list of game indices relevent to Pokémon item by generation. */
@@ -1697,7 +1713,7 @@ declare module 'pokedex-promise-v2' {
         /** A Pokémon Species forms the basis for at least one Pokémon. Attributes of a Pokémon species are shared across all varieties of Pokémon within the species. A good example is Wormadam; Wormadam is the species which can be found in three different varieties, Wormadam-Trash, Wormadam-Sandy and Wormadam-Plant. */
         interface PokemonSpecies {
             /** The happiness when caught by a normal Pokéball; up to 255. The higher the number, the happier the Pokémon. */
-            base_happiness: number;
+            base_happiness: number | null;
             /** The base capture rate; up to 255. The higher the number, the easier the catch. */
             capture_rate: number;
             /** The color of this Pokémon for Pokédex search. */
@@ -1705,7 +1721,7 @@ declare module 'pokedex-promise-v2' {
             /** A list of egg groups this Pokémon species is a member of. */
             egg_groups: NamedAPIResource[];
             /** The evolution chain this Pokémon species is a member of. */
-            evolution_chain: APIResource;
+            evolution_chain: null | ResultElement;
             /** The Pokémon species that evolves into this Pokemon_species. */
             evolves_from_species: null | NamedAPIResource;
             /** A list of flavor text entries for this Pokémon species. */
@@ -1727,7 +1743,7 @@ declare module 'pokedex-promise-v2' {
             /** Whether or not this Pokémon has visual gender differences. */
             has_gender_differences: boolean;
             /** Initial hatch counter: one must walk 255 × (hatch_counter + 1) steps before this Pokémon's egg hatches, unless utilizing bonuses like Flame Body's. */
-            hatch_counter: number;
+            hatch_counter: number | null;
             /** The identifier for this resource. */
             id: number;
             /** Whether or not this is a baby Pokémon. */
@@ -1747,7 +1763,7 @@ declare module 'pokedex-promise-v2' {
             /** A list of Pokedexes and the indexes reserved within them for this Pokémon species. */
             pokedex_numbers: PokedexNumber[];
             /** The shape of this Pokémon for Pokédex search. */
-            shape: NamedAPIResource;
+            shape: null | NamedAPIResource;
             /** A list of the Pokémon that exist within this Pokémon species. */
             varieties: Variety[];
         }
@@ -1798,7 +1814,7 @@ declare module 'pokedex-promise-v2' {
             /** A list of locations that can be found in this region. */
             locations: NamedAPIResource[];
             /** The generation this region was introduced in. */
-            main_generation: NamedAPIResource;
+            main_generation: null | NamedAPIResource;
             /** The name for this resource. */
             name: string;
             /** The name of this resource listed in different languages. */
@@ -1821,7 +1837,7 @@ declare module 'pokedex-promise-v2' {
             /** A detail of natures which affect this stat positively or negatively. */
             affecting_natures: StatAffectingNatures;
             /** A list of characteristics that are set on a Pokémon when its highest base stat is this stat. */
-            characteristics: APIResource[];
+            characteristics: ResultElement[];
             /** ID the games use for this stat. */
             game_index: number;
             /** The identifier for this resource. */
@@ -2118,7 +2134,7 @@ declare module 'pokedex-promise-v2' {
         getStatsList(interval?: ListEndpointOptions, callback?: (result: PokeAPI.NamedAPIResourceList, error?: any) => any): Promise<PokeAPI.NamedAPIResourceList>;
         getTypesList(interval?: ListEndpointOptions, callback?: (result: PokeAPI.NamedAPIResourceList, error?: any) => any): Promise<PokeAPI.NamedAPIResourceList>;
         getLanguagesList(interval?: ListEndpointOptions, callback?: (result: PokeAPI.NamedAPIResourceList, error?: any) => any): Promise<PokeAPI.NamedAPIResourceList>;
-        getEndpointsList(interval?: ListEndpointOptions, callback?: (result: any, error?: any) => any): Promise<PokeAPITypes.EndpointsList>;
+        getEndpointsList(interval?: ListEndpointOptions, callback?: (result: any, error?: any) => any): Promise<PokeAPI.EndpointsList>;
     }
 
     export = PokeAPI;
